@@ -1,0 +1,26 @@
+﻿@model List<FinalProtingII.Models.Absensi>
+@{
+    ViewData["Title"] = "Absensi Karyawan";
+}
+<section class="content">
+    <div class="col-xs-12">
+        <div id="divTitle" >
+            <div class="content-header">
+                <h3>@ViewData["Title"]</h3>
+            </div>
+        </div>
+        <div id="divSearch">
+            @Html.Partial("_SearchCriteria")
+        </div>
+        <div id="divGrid">
+            @Html.Partial("_GridView")
+        </div>
+    </div>
+</section>
+
+<script>
+    window.onresize = function () { resizeGrid() }
+</script>
+
+
+

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<FinalProtingII.Models.Penggajian>
+
+@{
+    ViewBag.Title = "Data Penggajian";
+    ViewBag.ActiveMenu = "Penggajian";
+}
+
+<section class="content">
+    <div class="col-xs-12">
+        <div id="divTitle">
+            <div class="content-header">
+                <h3>@ViewData["Title"]</h3>
+            </div>
+        </div>
+        <div id="divSearch">
+            @Html.Partial("_SearchCriteria")
+        </div>
+        <div id="divGrid">
+            @Html.Partial("_GridView", Model)
+        </div>
+    </div>
+</section>
+
+<!-- Modal container -->
+<div id="penggajian"></div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Buka modal (Create/Edit/Delete)
+            $(document).on('click', '.open-modal', function (e) {
+                e.preventDefault();
+                var url = $(this).data('url');
+                $.get(url, function (data) {
+                    $('#penggajian').html(data); // isi kontainer modal
+                });
+            });
+
+            // Tutup modal via tombol "Batal" atau "X"
+            $(document).on('click', '.modal .close, .modal [data-dismiss="modal"]', function () {
+                $(this).closest('.modal').modal('hide');
+            });
+
+            // Bersihkan modal & refresh grid saat modal ditutup
+            $('#penggajian').on('hidden.bs.modal', '.modal', function () {
+                $('#penggajian').empty();
+                location.reload();
+            });
+        });
+    </script>
+}

@@ -1,0 +1,49 @@
+﻿@model FinalProtingII.Models.Penggajian
+
+@{
+    Layout = null;
+}
+
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">Tambah Penggajian</h5>
+                    <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Nama Karyawan</label>
+                        <select asp-for="IdKaryawan" class="form-control" required>
+                            <option value="">-- Pilih Karyawan --</option>
+                            @foreach (var karyawan in (List<FinalProtingII.Models.Karyawan>)ViewBag.KaryawanList)
+                            {
+                                <option value="@karyawan.Id">@karyawan.Nama</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal</label>
+                        <input asp-for="Tanggal" type="date" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Gaji Pokok</label>
+                        <input asp-for="GajiPokok" type="number" class="form-control" required />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-success">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#createModal').modal('show');
+</script>

@@ -1,0 +1,49 @@
+﻿@model List<FinalProtingII.Models.Jobdesk>
+
+@{
+    ViewData["Title"] = "Jobdesk";
+}
+
+<section class="content">
+    <div class="col-xs-12">
+        <div id="divTitle">
+            <div class="content-header">
+                <h3>@ViewData["Title"]</h3>
+            </div>
+        </div>
+        <div id="divSearch">
+            @Html.Partial("_SearchCriteria")
+        </div>
+        <div id="divGrid">
+            @Html.Partial("_GridView")
+        </div>
+    </div>
+</section>
+
+<div id="jobdesk-modal"></div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.open-modal').click(function (e) {
+                e.preventDefault();
+                var url = $(this).data('url');
+                $.get(url, function (data) {
+                    $('#jobdesk-modal').html(data);
+                    $('#jobdesk-modal .modal').modal('show');
+                });
+            });
+
+            // Tutup modal via tombol "Batal" atau "X"
+            $(document).on('click', '.modal .close, .modal [data-dismiss="modal"]', function () {
+                $(this).closest('.modal').modal('hide');
+            });
+
+            // Hapus isi modal ketika selesai
+            $('#dataKaryawan').on('hidden.bs.modal', '.modal', function () {
+                $('#dataKaryawan').empty();
+                location.reload(); // Refresh tabel agar data terbaru muncul
+            });
+        });
+    </script>
+}
